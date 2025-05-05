@@ -82,7 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     clearAccountState
   );
 
-  // Custom signUp function to handle metadata
+
   const signUp = async (email: string, password: string, metadata?: UserMetadata) => {
     try {
       const { error, data } = await supabase.auth.signUp({
