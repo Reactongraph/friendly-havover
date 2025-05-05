@@ -90,7 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         password,
         options: {
           data: metadata,
-          emailRedirectTo: `https://friendly-handover.vercel.app/auth/confirm`
+          emailRedirectTo: `https://friendly-handover.vercel.app/`
         }
       });
       
