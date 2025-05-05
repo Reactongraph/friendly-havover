@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    --primary: 252 56% 57%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 240 5.9% 96.1%;
+    --secondary-foreground: 240 5.9% 10%;
+    
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 252 56% 57%;
+    
+    --radius: 0.75rem;
+
+    --sidebar-background: 246 30% 96%;
+    --sidebar-foreground: 246 10% 40%;
+    --sidebar-primary: 252 56% 57%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 246 30% 92%;
+    --sidebar-accent-foreground: 246 10% 30%;
+    --sidebar-border: 246 30% 90%;
+    --sidebar-ring: 252 56% 57%;
+
+    --priority-low: 160 84% 39%;
+    --priority-medium: 25 95% 53%;
+    --priority-high: 0 84% 60%;
+  }
+  
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 252 56% 57%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 252 56% 57%;
+
+    --sidebar-background: 246 15% 10%;
+    --sidebar-foreground: 246 10% 80%;
+    --sidebar-primary: 252 56% 57%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 246 14% 15%;
+    --sidebar-accent-foreground: 246 10% 90%;
+    --sidebar-border: 246 14% 15%;
+    --sidebar-ring: 252 56% 57%;
+
+    --priority-low: 160 84% 39%;
+    --priority-medium: 25 95% 53%;
+    --priority-high: 0 84% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  .glass-morphism {
+    @apply bg-white/70 dark:bg-black/70 backdrop-blur-lg border border-white/20 dark:border-black/20 shadow-glass;
+  }
+  
+  .neo-morphism {
+    @apply bg-white dark:bg-zinc-900 shadow-subtle border border-gray-100 dark:border-zinc-800;
+  }
+  
+  .handover-section {
+    @apply opacity-0 animate-fade-in;
+    animation-delay: calc(var(--index) * 0.1s);
+  }
+  
+  .note-card {
+    @apply opacity-0 animate-scale-in;
+    animation-delay: calc(var(--index) * 0.05s);
+  }
+  
+  .sidebar-item {
+    @apply opacity-0 animate-slide-in;
+    animation-delay: calc(var(--index) * 0.05s);
+  }
+  
+  .date-navigation {
+    @apply opacity-0 animate-blur-in;
+    animation-delay: 0.1s;
+  }
+}
+
+/* Add floating animation for particles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-10px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-20px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-10px) translateX(-20px);
+  }
+}
+
+/* Add shimmer effect animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.auth-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.15) 25%, 
+    rgba(255,255,255,0.3) 50%, 
+    rgba(255,255,255,0.15) 75%, 
+    rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite;
+}
+
+/* Update Auth page styling */
+.auth-page {
+  @apply relative min-h-screen flex items-center justify-center overflow-hidden;
+  background: linear-gradient(135deg, rgba(76,29,149,1) 0%, rgba(91,33,182,1) 35%, rgba(124,58,237,1) 100%);
+}
