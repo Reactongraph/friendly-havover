@@ -6,6 +6,7 @@ import NotDoneDialog from "./NotDoneDialog";
 import { groupTasksByTime } from "./TaskData";
 import { markTaskDone, markTaskNotDone } from "@/utils/taskUtils";
 import TaskLoadingState from "./TaskLoadingState";
+import { useTeamMembers } from "@/hooks/useTeamMembers";
 
 interface TaskTimelineProps {
   date: Date;
@@ -27,7 +28,8 @@ const TaskTimeline: React.FC<TaskTimelineProps> = ({
   const [notDoneDialogOpen, setNotDoneDialogOpen] = useState(false);
   const [reason, setReason] = useState("");
   const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
-
+  const { currentUser } = useTeamMembers();
+console.log(date,"date-----tasktimeline")
   const updateTaskState = (taskId: string, updates: Partial<Task>) => {
     setTasks((prev) =>
       prev.map((task) => (task.id === taskId ? { ...task, ...updates } : task))
@@ -35,7 +37,8 @@ const TaskTimeline: React.FC<TaskTimelineProps> = ({
   };
 
   const handleMarkTaskDone = async (taskId: string) => {
-    await markTaskDone(taskId, account, updateTaskState);
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",tasks)
+    await markTaskDone(taskId, currentUser, updateTaskState, tasks);
   };
 
   const openNotDoneDialog = (taskId: string) => {
@@ -94,6 +97,7 @@ const TaskTimeline: React.FC<TaskTimelineProps> = ({
               tasks={groupedTasks[timeBlock]}
               onMarkDone={handleMarkTaskDone}
               onMarkNotDone={openNotDoneDialog}
+              selectedDate={date}
             />
           ))
         ) : (

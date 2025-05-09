@@ -51,7 +51,11 @@ export type RecurringDays = {
   saturday: boolean;
   sunday: boolean;
 };
-
+export interface RecursiveAction {
+  actionType: "completed" | "incomplete";
+  actionDate: string; // in 'YYYY-MM-DD' format
+  remarks?: string | null;
+}
 export type Task = {
   id: string;
   title: string;
@@ -68,6 +72,7 @@ export type Task = {
   task_date?: string | null;
   created_at?: string;
   updated_at?: string;
+  recursive_actions?: RecursiveAction[];
 };
 
 export type DbTask = {
@@ -96,4 +101,6 @@ export type DbTask = {
   } | null;
   task_date: string;
   completed_by: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  recursive_actions?: any; 
 };

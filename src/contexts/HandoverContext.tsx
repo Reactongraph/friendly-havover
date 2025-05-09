@@ -103,14 +103,15 @@ const {user}=useAuth()
   // Get notes for a specific date
   const getNotesForDate = (date: Date) => {
     const dateString = getDateString(date);
-    return notes.filter(note => note.date === dateString);
+    return notes.filter(note => note.date <= dateString);
   };
   
   // Get overdue notes (incomplete notes from previous days)
   const getOverdueNotes = (date: Date) => {
+    console.log(date,"date")
     const dateString = getDateString(date);
     const todayString = getDateString(new Date());
-    
+    const todayDate = parseISO(todayString)
     // Only show overdue notes on current or future dates
     if (dateString < todayString) {
       return [];
@@ -123,8 +124,8 @@ const {user}=useAuth()
       
       return (
         !note.isCompleted && 
-        note.date < dateString && 
-        (isAfter(selectedDate, noteDate) || isEqual(selectedDate, noteDate))
+        note.date < todayString && 
+        (isAfter(todayDate, noteDate) || isEqual(todayDate, noteDate))
       );
     });
   };
