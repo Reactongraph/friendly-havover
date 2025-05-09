@@ -8,13 +8,20 @@ interface TaskItemProps {
   task: Task;
   onMarkDone: (taskId: string) => void;
   onMarkNotDone: (taskId: string) => void;
+  selectedDate: Date;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
   task,
   onMarkDone,
   onMarkNotDone,
+  selectedDate
 }) => {
+  console.log(selectedDate,"selectedDate")
+  const date = new Date();
+  const isToday = date.toDateString() === selectedDate.toDateString();
+  console.log(isToday,"isToday")
+
   return (
     <div
       className={cn(
@@ -22,7 +29,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         "hover:shadow-md hover:border-primary/20",
         task.status === "completed" &&
           "border-green-500/20 bg-green-50 dark:bg-green-950/20",
-        task.status === "overdue" && "border-destructive/20 bg-destructive/5"
+        task.status === "overdue" && "border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
       )}
     >
       <div className="flex items-start justify-between gap-3">
@@ -33,7 +40,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
           </p>
 
           {task.status === "overdue" && task.reason && (
-            <div className="mt-2 p-2 border-l-4 border-red-600 bg-red-50 dark:bg-red-900 text-xs flex items-center text-red-800 dark:text-red-200">
+            <div className="mt-2 p-2 border-l-4 border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-xs flex items-center text-gray-600 dark:text-gray-300">
               <TriangleAlert size={16} className="mr-2" />
               <span className="ml-1">{task.reason}</span>
             </div>
@@ -48,39 +55,42 @@ const TaskItem: React.FC<TaskItemProps> = ({
         </div>
 
         <div className="flex space-x-2 shrink-0">
-          {task.status === "completed" ? (
-            <Button
-              onClick={() => onMarkNotDone(task.id)}
-              variant="ghost"
-              size="sm"
-              className="h-7 w-7 p-0 bg-green-100 text-green-600 hover:bg-green-200 hover:text-green-700 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"
-              title="Return to pending"
-            >
-              <Undo size={14} />
-            </Button>
-          ) : (
-            <>
-              <Button
-                onClick={() => onMarkDone(task.id)}
-                variant="ghost"
-                size="sm"
-                className="h-7 w-7 p-0 bg-primary/5 text-primary hover:bg-primary/10 hover:text-primary dark:bg-primary/20"
-                title="Mark as complete"
-              >
-                <Check size={14} />
-              </Button>
-              <Button
-                onClick={() => onMarkNotDone(task.id)}
-                variant="ghost"
-                size="sm"
-                className="h-7 w-7 p-0 bg-destructive/5 text-destructive hover:bg-destructive/10 hover:text-destructive dark:bg-destructive/20"
-                title="Mark as overdue"
-              >
-                <XCircle size={14} />
-              </Button>
-            </>
-          )}
-        </div>
+  {isToday && (
+    task.status === "completed" ? (
+      <Button
+        onClick={() => onMarkNotDone(task.id)}
+        variant="ghost"
+        size="sm"
+        className="h-7 w-7 p-0 bg-green-100 text-green-600 hover:bg-green-200 hover:text-green-700 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50"
+        title="Return to pending"
+      >
+        <Undo size={14} />
+      </Button>
+    ) : (
+      <>
+        <Button
+          onClick={() => onMarkDone(task.id)}
+          variant="ghost"
+          size="sm"
+          className="h-7 w-7 p-0 bg-primary/5 text-primary hover:bg-primary/10 hover:text-primary dark:bg-primary/20"
+          title="Mark as complete"
+        >
+          <Check size={14} />
+        </Button>
+        <Button
+          onClick={() => onMarkNotDone(task.id)}
+          variant="ghost"
+          size="sm"
+          className="h-7 w-7 p-0 bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+          title="Mark as overdue"
+        >
+          <XCircle size={14} />
+        </Button>
+      </>
+    )
+  )}
+</div>
+
       </div>
     </div>
   );

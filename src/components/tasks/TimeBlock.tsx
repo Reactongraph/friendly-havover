@@ -8,9 +8,12 @@ interface TimeBlockProps {
   tasks: Task[];
   onMarkDone: (taskId: string) => void;
   onMarkNotDone: (taskId: string) => void;
+  selectedDate: Date;
 }
 
-const TimeBlock: React.FC<TimeBlockProps> = ({ timeLabel, tasks, onMarkDone, onMarkNotDone }) => {
+
+const TimeBlock: React.FC<TimeBlockProps> = ({ timeLabel, tasks, onMarkDone, onMarkNotDone ,selectedDate}) => {
+  console.log("TimeBlock",timeLabel)
   return (
     <div className="mb-6 relative">
       {/* Time block label with marker */}
@@ -32,6 +35,7 @@ const TimeBlock: React.FC<TimeBlockProps> = ({ timeLabel, tasks, onMarkDone, onM
             task={task}
             onMarkDone={onMarkDone}
             onMarkNotDone={onMarkNotDone}
+            selectedDate={selectedDate}
           />
         ))}
       </div>
